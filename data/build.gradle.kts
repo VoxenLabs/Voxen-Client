@@ -4,10 +4,9 @@ plugins {
 }
 
 kotlin {
-    sourceSets {
-        androidMain.dependencies {
-        }
+    jvm()
 
+    sourceSets {
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)

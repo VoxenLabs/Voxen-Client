@@ -16,7 +16,7 @@ material3 = "1.10.0-alpha05"
 
 kotlin = "2.3.10"
 kotlinx-coroutines = "1.10.2"
-koin-bom = "4.2.0"
+koin-bom = "4.2.0-RC1"
 koin-plugin = "0.3.0"
 
 webrtcJava = "0.14.0"

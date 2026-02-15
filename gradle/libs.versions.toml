@@ -20,6 +20,7 @@ koin-bom = "4.2.0-RC1"
 koin-plugin = "0.3.0"
 
 webrtcJava = "0.14.0"
+signalrkore = "0.9.12"
 
 junit = "4.13.2"
 androidx-espresso = "3.7.0"
@@ -51,6 +52,7 @@ koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
 
 webrtc-java = { module = "dev.onvoid.webrtc:webrtc-java", version.ref = "webrtcJava" }
+signalrkore = { module = "eu.lepicekmichal.signalrkore:signalrkore", version.ref = "signalrkore" }
 
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

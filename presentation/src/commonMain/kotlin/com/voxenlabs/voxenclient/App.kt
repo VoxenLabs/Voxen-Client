@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.jetbrains.compose.resources.painterResource
 
-import voxenclient.composeapp.generated.resources.Res
-import voxenclient.composeapp.generated.resources.compose_multiplatform
+import voxenclient.presentation.generated.resources.Res
+import voxenclient.presentation.generated.resources.compose_multiplatform
 
 @Composable
 @Preview

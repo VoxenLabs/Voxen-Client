@@ -12,6 +12,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.annotations)
             implementation(libs.signalrkore)
+            implementation(libs.kotlinx.coroutines.core)
         }
 
         commonTest.dependencies {

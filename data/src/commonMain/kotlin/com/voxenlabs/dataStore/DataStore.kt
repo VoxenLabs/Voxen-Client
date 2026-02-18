@@ -4,8 +4,8 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 open class DataStore<K, V> {
-    val mutex = Mutex()
-    var cachedData = HashMap<K, V>()
+    private val mutex = Mutex()
+    private val cachedData = mutableMapOf<K, V>()
 
     suspend fun add(
         key: K,

@@ -1,3 +1,4 @@
+import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -42,6 +43,13 @@ kotlin {
         }
 
         jvmMain.dependencies {
+            val webrtcDependency = when {
+                OperatingSystem.current().isWindows -> "dev.onvoid.webrtc:webrtc-java:0.14.0:windows-x86_64"
+                OperatingSystem.current().isLinux -> "dev.onvoid.webrtc:webrtc-java:0.14.0:linux-x86_64"
+                OperatingSystem.current().isMacOsX -> "dev.onvoid.webrtc:webrtc-java:0.14.0:macos-aarch64"
+                else -> ""
+            }
+            implementation(webrtcDependency)
             implementation(libs.webrtc.java)
         }
     }

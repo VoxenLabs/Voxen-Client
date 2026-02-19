@@ -25,6 +25,14 @@ import voxenclient.presentation.generated.resources.compose_multiplatform
 fun App() {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
+        val getAvailableMicrophones: GetAvailableMicrophonesUseCase = getKoin().get()
+        val getAvailableSpeakers: GetAvailableSpeakersUseCase = getKoin().get()
+        val getDefaultMicrophoneUseCase: GetDefaultMicrophoneUseCase = getKoin().get()
+        val getDefaultSpeakerUseCase: GetDefaultSpeakerUseCase = getKoin().get()
+        println(getDefaultSpeakerUseCase().name)
+        println(getDefaultMicrophoneUseCase().name)
+        println(getAvailableSpeakers().map { it.name })
+        println(getAvailableMicrophones().map { it.name })
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primaryContainer)

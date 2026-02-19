@@ -1,4 +1,4 @@
-package com.voxenlabs.dataStore
+package com.voxenlabs.data.dataStore
 
 open class SingleKeyDataStore<V> {
     private object CacheKey

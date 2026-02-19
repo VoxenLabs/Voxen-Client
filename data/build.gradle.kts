@@ -49,7 +49,7 @@ kotlin {
                 OperatingSystem.current().isMacOsX -> "dev.onvoid.webrtc:webrtc-java:0.14.0:macos-aarch64"
                 else -> ""
             }
-            implementation(webrtcDependency)
+            runtimeOnly(webrtcDependency)
             implementation(libs.webrtc.java)
         }
     }

@@ -7,11 +7,11 @@ import org.koin.core.annotation.Singleton
 
 @Singleton
 class AudioDeviceRepository : AudioDeviceRepositoryInterface {
-    override fun getAvailableMicrophones(): List<AudioDevice> = MediaDevices.getAudioCaptureDevices().mapToModels()
+    override fun getAvailableMicrophones() = MediaDevices.getAudioCaptureDevices().toDomain()
 
-    override fun getAvailableSpeakers(): List<AudioDevice> = MediaDevices.getAudioRenderDevices().mapToModels()
+    override fun getAvailableSpeakers() = MediaDevices.getAudioRenderDevices().toDomain()
 
-    override fun getDefaultMicrophone(): AudioDevice = MediaDevices.getDefaultAudioCaptureDevice().mapToModel()
+    override fun getDefaultMicrophone() = MediaDevices.getDefaultAudioCaptureDevice().toDomain()
 
-    override fun getDefaultSpeaker(): AudioDevice = MediaDevices.getDefaultAudioRenderDevice().mapToModel()
+    override fun getDefaultSpeaker() = MediaDevices.getDefaultAudioRenderDevice().toDomain()
 }

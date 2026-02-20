@@ -14,13 +14,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.voxenlabs.domain.audiodevice.usecases.*
 import org.jetbrains.compose.resources.painterResource
-
+import org.koin.compose.getKoin
 import voxenclient.presentation.generated.resources.Res
 import voxenclient.presentation.generated.resources.compose_multiplatform
 
+@Suppress("ktlint:compose:modifier-missing-check")
 @Composable
-@Preview
 fun App() {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }

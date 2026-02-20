@@ -1,4 +1,4 @@
-package com.voxenlabs.dataStore
+package com.voxenlabs.data.dataStore
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock

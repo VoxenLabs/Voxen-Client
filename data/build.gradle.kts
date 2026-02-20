@@ -1,9 +1,29 @@
+import org.gradle.internal.os.OperatingSystem
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.koin.compiler)
 }
 
 kotlin {
+    androidTarget {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
+    }
+
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
+
     jvm()
 
     sourceSets {
@@ -13,6 +33,8 @@ kotlin {
             implementation(libs.koin.annotations)
             implementation(libs.signalrkore)
             implementation(libs.kotlinx.coroutines.core)
+
+            implementation(projects.domain)
         }
 
         commonTest.dependencies {
@@ -21,7 +43,33 @@ kotlin {
         }
 
         jvmMain.dependencies {
+            val webrtcDependency = when {
+                OperatingSystem.current().isWindows -> "dev.onvoid.webrtc:webrtc-java:0.14.0:windows-x86_64"
+                OperatingSystem.current().isLinux -> "dev.onvoid.webrtc:webrtc-java:0.14.0:linux-x86_64"
+                OperatingSystem.current().isMacOsX -> "dev.onvoid.webrtc:webrtc-java:0.14.0:macos-aarch64"
+                else -> ""
+            }
+            runtimeOnly(webrtcDependency)
             implementation(libs.webrtc.java)
         }
+    }
+}
+
+android {
+    namespace = "com.voxenlabs.voxenclient"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }

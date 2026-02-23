@@ -15,6 +15,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,21 +36,33 @@ import voxenclient.presentation.generated.resources.plus
 fun ServerBrowser(
     uiState: ServerBrowserUiState,
     modifier: Modifier = Modifier,
-) = Scaffold(
-    modifier = modifier,
-    floatingActionButton = {
-        FloatingActionButton(
-            onClick = {},
-            content = {
-                Icon(
-                    imageVector = vectorResource(Res.drawable.plus),
-                    contentDescription = "Add server",
-                )
-            },
-        )
-    },
 ) {
-    ServerGrid(uiState.servers)
+    var showDialog by remember { mutableStateOf(false) }
+
+    Scaffold(
+        modifier = modifier,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showDialog = true },
+                content = {
+                    Icon(
+                        imageVector = vectorResource(Res.drawable.plus),
+                        contentDescription = "Add server",
+                    )
+                },
+            )
+        },
+    ) {
+
+        ServerGrid(uiState.servers)
+
+        if (showDialog) {
+            AddServerDialog(
+                onAddServer = { _, _, _ -> },
+                onDismissRequest = { showDialog = false },
+            )
+        }
+    }
 }
 
 @Composable
@@ -86,7 +102,7 @@ private fun ServerItem(
 
 @Preview
 @Composable
-private fun ServerBrowserComposablePreview() = ScreenPreview {
+fun ServerBrowserComposablePreview() = ScreenPreview {
     ServerBrowser(
         uiState = ServerBrowserUiState(
             servers = listOf(

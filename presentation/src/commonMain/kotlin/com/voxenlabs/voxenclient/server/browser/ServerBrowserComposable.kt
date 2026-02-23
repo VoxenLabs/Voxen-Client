@@ -9,7 +9,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,24 +23,45 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.voxenlabs.voxenclient.utils.ScreenPreview
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.vectorResource
 import voxenclient.presentation.generated.resources.Res
 import voxenclient.presentation.generated.resources.compose_multiplatform
+import voxenclient.presentation.generated.resources.plus
 
 @Composable
 fun ServerBrowser(
     uiState: ServerBrowserUiState,
     modifier: Modifier = Modifier,
+) = Scaffold(
+    modifier = modifier,
+    floatingActionButton = {
+        FloatingActionButton(
+            onClick = {},
+            content = {
+                Icon(
+                    imageVector = vectorResource(Res.drawable.plus),
+                    contentDescription = "Add server",
+                )
+            },
+        )
+    },
 ) {
-    LazyVerticalGrid(
-        modifier = modifier,
-        contentPadding = PaddingValues(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        columns = GridCells.Adaptive(minSize = 100.dp),
-    ) {
-        items(uiState.servers) {
-            ServerItem(it)
-        }
+    ServerGrid(uiState.servers)
+}
+
+@Composable
+private fun ServerGrid(
+    servers: List<ServerUiModel>,
+    modifier: Modifier = Modifier,
+) = LazyVerticalGrid(
+    modifier = modifier,
+    contentPadding = PaddingValues(8.dp),
+    horizontalArrangement = Arrangement.spacedBy(8.dp),
+    verticalArrangement = Arrangement.spacedBy(8.dp),
+    columns = GridCells.Adaptive(minSize = 100.dp),
+) {
+    items(servers) {
+        ServerItem(it)
     }
 }
 

@@ -56,6 +56,7 @@ fun AddServerDialog(
             TextButton(
                 onClick = {
                     onAddServer(hostname.text.toString(), port.text.toString(), password.text.toString())
+                    onDismissRequest()
                 },
                 content = { Text("Add") },
             )

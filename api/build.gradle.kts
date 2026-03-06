@@ -33,6 +33,7 @@ kotlin {
             implementation(libs.ktor.client.content.negotation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.auth)
+            implementation(libs.logback)
         }
 
         commonTest.dependencies {

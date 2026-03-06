@@ -3,6 +3,7 @@ package com.voxenlabs.data.login.repositories
 import com.voxenlabs.api.ApiClient
 import com.voxenlabs.data.login.api.UsersApiInterface
 import com.voxenlabs.domain.users.repositories.UsersRepositoryInterface
+import eu.anifantakis.lib.ksafe.KSafe
 import org.koin.core.annotation.Singleton
 
 @Singleton

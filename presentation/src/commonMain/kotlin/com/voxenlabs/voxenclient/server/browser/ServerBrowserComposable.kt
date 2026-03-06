@@ -1,12 +1,14 @@
 package com.voxenlabs.voxenclient.server.browser
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -21,22 +23,28 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.stylusHoverIcon
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.voxenlabs.voxenclient.utils.ScreenPreview
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
+import org.koin.compose.koinInject
 import voxenclient.presentation.generated.resources.Res
 import voxenclient.presentation.generated.resources.compose_multiplatform
 import voxenclient.presentation.generated.resources.plus
 
 @Composable
 fun ServerBrowser(
-    uiState: ServerBrowserUiState,
+    viewModel: ServerBrowserViewModel,
     modifier: Modifier = Modifier,
 ) {
     var showDialog by remember { mutableStateOf(false) }
+
+    viewModel.fetchServers()
 
     Scaffold(
         modifier = modifier,
@@ -52,12 +60,14 @@ fun ServerBrowser(
             )
         },
     ) {
-
-        ServerGrid(uiState.servers)
+        ServerGrid(viewModel)
 
         if (showDialog) {
             AddServerDialog(
-                onAddServer = { _, _, _ -> },
+                onAddServer = { hostname, port ->
+                    viewModel.addServer(hostname, port)
+                    showDialog = false
+                },
                 onDismissRequest = { showDialog = false },
             )
         }
@@ -65,37 +75,53 @@ fun ServerBrowser(
 }
 
 @Composable
-private fun ServerGrid(
-    servers: List<ServerUiModel>,
+internal expect fun ServerGrid(
+    serverBrowserViewModel: ServerBrowserViewModel,
     modifier: Modifier = Modifier,
-) = LazyVerticalGrid(
-    modifier = modifier,
-    contentPadding = PaddingValues(8.dp),
-    horizontalArrangement = Arrangement.spacedBy(8.dp),
-    verticalArrangement = Arrangement.spacedBy(8.dp),
-    columns = GridCells.Adaptive(minSize = 100.dp),
-) {
-    items(servers) {
-        ServerItem(it)
-    }
-}
+)
 
 @Composable
-private fun ServerItem(
+internal fun ServerItem(
     serverUiModel: ServerUiModel,
     modifier: Modifier = Modifier,
-) = Card(
-    modifier = modifier,
-    colors = CardDefaults.cardColors(
-        containerColor = Color.Transparent,
-    ),
 ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(
-            painter = painterResource(Res.drawable.compose_multiplatform),
-            contentDescription = serverUiModel.name,
-        )
-        Text(serverUiModel.name, textAlign = TextAlign.Center)
+    val mutableInteractionSource = remember {
+        MutableInteractionSource()
+    }
+    val hovered = mutableInteractionSource.collectIsHoveredAsState()
+    val scale = animateFloatAsState(
+        targetValue = if (hovered.value) {
+            1.1f
+        } else {
+            1.0f
+        },
+        animationSpec = spring(Spring.DampingRatioMediumBouncy, Spring.StiffnessLow),
+    )
+
+    Card(
+        modifier = modifier
+            .hoverable(mutableInteractionSource)
+            .clickable(mutableInteractionSource, null) {
+                println("CLICKED")
+            },
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Transparent,
+        ),
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Image(
+                painter = painterResource(Res.drawable.compose_multiplatform),
+                contentDescription = serverUiModel.name,
+                modifier = Modifier
+                    .graphicsLayer {
+                        this.scaleX = scale.value
+                        this.scaleY = scale.value
+                    },
+            )
+            Text(serverUiModel.name, textAlign = TextAlign.Center)
+        }
     }
 }
 
@@ -103,18 +129,6 @@ private fun ServerItem(
 @Composable
 fun ServerBrowserComposablePreview() = ScreenPreview {
     ServerBrowser(
-        uiState = ServerBrowserUiState(
-            servers = listOf(
-                ServerUiModel(name = "Server 1", iconUrl = ""),
-                ServerUiModel(name = "Server 2", iconUrl = ""),
-                ServerUiModel(name = "Server with very long name", iconUrl = ""),
-                ServerUiModel(name = "Server 4", iconUrl = ""),
-                ServerUiModel(name = "Server 5", iconUrl = ""),
-                ServerUiModel(name = "Server 6", iconUrl = ""),
-                ServerUiModel(name = "Server 7", iconUrl = ""),
-                ServerUiModel(name = "Server 8", iconUrl = ""),
-                ServerUiModel(name = "Server 9", iconUrl = ""),
-            ),
-        ),
+        viewModel = koinInject(),
     )
 }

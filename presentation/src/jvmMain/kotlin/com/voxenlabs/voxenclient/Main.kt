@@ -9,7 +9,9 @@ import org.koin.plugin.module.dsl.startKoin
 import java.awt.Dimension
 
 fun main() {
-    startKoin<MyApp>()
+    startKoin<MyApp> {
+        this.modules(platformModule)
+    }
     application {
         Window(
             state = rememberWindowState(

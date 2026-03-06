@@ -41,6 +41,7 @@ kotlin {
             implementation(libs.koin.annotations)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.ksafe)
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)

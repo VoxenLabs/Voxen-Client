@@ -2,12 +2,13 @@ package com.voxenlabs.voxenclient
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import com.voxenlabs.voxenclient.server.browser.ServerBrowser
 import com.voxenlabs.voxenclient.server.browser.ServerBrowserComposablePreview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-@Suppress("ktlint:compose:modifier-missing-check")
 fun App() {
     MaterialTheme {
-        ServerBrowserComposablePreview()
+        ServerBrowser(koinViewModel())
     }
 }

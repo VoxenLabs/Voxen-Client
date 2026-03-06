@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.koin.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -30,6 +31,7 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.annotations)
+            implementation(libs.kotlinx.serialization.json)
         }
 
         commonTest.dependencies {

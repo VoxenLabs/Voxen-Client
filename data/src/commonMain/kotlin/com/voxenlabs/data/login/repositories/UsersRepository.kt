@@ -15,7 +15,7 @@ class UsersRepository(
     ) {
         val response = usersApi.login(username, password)
 
-        ApiClient.accessToken = response.accessToken
+        ApiClient.setBearerTokens(response.accessToken)
     }
 
     override suspend fun register(

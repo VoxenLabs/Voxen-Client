@@ -108,5 +108,10 @@ compose.desktop {
             packageName = "com.voxenlabs.voxenclient"
             packageVersion = "1.0.0"
         }
+
+        buildTypes.release.proguard {
+            obfuscate = true
+            configurationFiles.from(project.file("compose-desktop.pro"))
+        }
     }
 }

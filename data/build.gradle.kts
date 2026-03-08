@@ -33,6 +33,7 @@ kotlin {
             implementation(libs.koin.annotations)
             implementation(libs.signalrkore)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.core)
 
             implementation(projects.domain)
             implementation(projects.api)

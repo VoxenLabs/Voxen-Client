@@ -4,13 +4,15 @@ import LoginRequest
 import LoginResponse
 import RegisterRequest
 import com.voxenlabs.api.ApiClient
+import io.ktor.client.call.body
+import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpMethod
 
 object UsersApi {
     suspend fun login(
         username: String,
         password: String,
-    ): LoginResponse {
+    ): HttpResponse {
         val url = "/users/login"
 
         return ApiClient.executeRequest(url, HttpMethod.Post, LoginRequest(username, password))
@@ -19,9 +21,9 @@ object UsersApi {
     suspend fun register(
         username: String,
         password: String,
-    ) {
+    ): HttpResponse {
         val url = "/users/register"
 
-        ApiClient.executeRequestNoResponse(url, HttpMethod.Post, RegisterRequest(username, password))
+        return ApiClient.executeRequest(url, HttpMethod.Post, RegisterRequest(username, password))
     }
 }

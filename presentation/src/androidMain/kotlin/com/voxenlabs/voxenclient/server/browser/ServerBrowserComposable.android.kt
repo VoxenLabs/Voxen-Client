@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 @Composable
 internal actual fun ServerGrid(
     serverBrowserViewModel: ServerBrowserViewModel,
+    onServerClick: (ServerUiModel) -> Unit,
     modifier: Modifier,
 ) {
 }

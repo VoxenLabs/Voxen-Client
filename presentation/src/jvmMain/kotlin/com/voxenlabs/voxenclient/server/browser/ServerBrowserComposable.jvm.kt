@@ -9,13 +9,12 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.stylusHoverIcon
 import androidx.compose.ui.unit.dp
 
 @Composable
 internal actual fun ServerGrid(
     serverBrowserViewModel: ServerBrowserViewModel,
+    onServerClick: (ServerUiModel) -> Unit,
     modifier: Modifier,
 ) = LazyVerticalGrid(
     modifier = modifier,
@@ -34,7 +33,10 @@ internal actual fun ServerGrid(
                 )
             },
         ) {
-            ServerItem(it, Modifier.stylusHoverIcon(PointerIcon.Hand, true))
+            ServerItem(
+                it,
+                onClick = { onServerClick(it) },
+            )
         }
     }
 }

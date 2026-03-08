@@ -57,6 +57,12 @@ class ServerBrowserViewModel(
         }
     }
 
+    fun setCurrentServer(serverUiModel: ServerUiModel) {
+        val splitName = serverUiModel.name.split(":")
+        val server = Server(splitName[0], splitName[1])
+        setCurrentServerHostnameUseCase(server.hostname, server.port)
+    }
+
     fun removeServer(serverUiModel: ServerUiModel) {
         val splitName = serverUiModel.name.split(":")
         val server = Server(splitName[0], splitName[1])

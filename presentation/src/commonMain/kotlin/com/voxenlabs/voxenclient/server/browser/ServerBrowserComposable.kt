@@ -24,11 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.stylusHoverIcon
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.voxenlabs.voxenclient.utils.ScreenPreview
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
@@ -42,7 +39,8 @@ fun ServerBrowser(
     viewModel: ServerBrowserViewModel,
     modifier: Modifier = Modifier,
 ) {
-    var showDialog by remember { mutableStateOf(false) }
+    var showAddServerDialog by remember { mutableStateOf(false) }
+    var showLoginDialog by remember { mutableStateOf(false) }
 
     viewModel.fetchServers()
 
@@ -50,7 +48,7 @@ fun ServerBrowser(
         modifier = modifier,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { showDialog = true },
+                onClick = { showAddServerDialog = true },
                 content = {
                     Icon(
                         imageVector = vectorResource(Res.drawable.plus),
@@ -60,15 +58,28 @@ fun ServerBrowser(
             )
         },
     ) {
-        ServerGrid(viewModel)
+        ServerGrid(
+            viewModel,
+            onServerClick = {
+                viewModel.setCurrentServer(it)
+                showLoginDialog = true
+            },
+        )
 
-        if (showDialog) {
+        if (showAddServerDialog) {
             AddServerDialog(
                 onAddServer = { hostname, port ->
                     viewModel.addServer(hostname, port)
-                    showDialog = false
+                    showAddServerDialog = false
                 },
-                onDismissRequest = { showDialog = false },
+                onDismissRequest = { showAddServerDialog = false },
+            )
+        } else if (showLoginDialog) {
+            LoginDialog(
+                onLogin = { username, password ->
+                    viewModel.login(username, password)
+                },
+                onDismissRequest = { showLoginDialog = false },
             )
         }
     }
@@ -77,12 +88,14 @@ fun ServerBrowser(
 @Composable
 internal expect fun ServerGrid(
     serverBrowserViewModel: ServerBrowserViewModel,
+    onServerClick: (ServerUiModel) -> Unit,
     modifier: Modifier = Modifier,
 )
 
 @Composable
 internal fun ServerItem(
     serverUiModel: ServerUiModel,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val mutableInteractionSource = remember {
@@ -101,9 +114,7 @@ internal fun ServerItem(
     Card(
         modifier = modifier
             .hoverable(mutableInteractionSource)
-            .clickable(mutableInteractionSource, null) {
-                println("CLICKED")
-            },
+            .clickable(mutableInteractionSource, null, onClick = onClick),
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent,
         ),

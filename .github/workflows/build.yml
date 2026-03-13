@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build and analyze
+    name: Build and analyse
     runs-on: [self-hosted, Linux]
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +41,6 @@ jobs:
       
       - name: Build and analyze
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ github.actor == 'dependabot[bot]' && secrets.SONAR_URL_DEPENDABOT || secrets.SONAR_HOST_URL }}
         run: ./gradlew build sonar --info

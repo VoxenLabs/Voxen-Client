@@ -68,8 +68,9 @@ fun ServerBrowser(
 
         if (showAddServerDialog) {
             AddServerDialog(
-                onAddServer = { hostname, port ->
-                    viewModel.addServer(hostname, port)
+                viewModel = koinInject(),
+                onServerAdded = {
+                    viewModel.fetchServers()
                     showAddServerDialog = false
                 },
                 onDismissRequest = { showAddServerDialog = false },

@@ -27,7 +27,8 @@ import com.voxenlabs.voxenclient.utils.ScreenPreview
 
 @Composable
 fun AddServerDialog(
-    onAddServer: (hostname: String, port: String) -> Unit,
+    viewModel: AddServerDialogViewModel,
+    onServerAdded: () -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -75,10 +76,9 @@ fun AddServerDialog(
         confirmButton = {
             TextButton(
                 onClick = {
-                    onAddServer(
-                        hostname.text.toString(),
-                        port.text.toString(),
-                    )
+                    viewModel.addServer(hostname.text.toString(), port.text.toString()) {
+                        onServerAdded()
+                    }
                 },
                 content = { Text("Add") },
             )
@@ -90,7 +90,8 @@ fun AddServerDialog(
 @Composable
 private fun AddServerDialogComposablePreview() = ScreenPreview {
     AddServerDialog(
-        onAddServer = { _, _ -> },
+        viewModel = TODO(),
+        onServerAdded = { },
         onDismissRequest = {},
     )
 }

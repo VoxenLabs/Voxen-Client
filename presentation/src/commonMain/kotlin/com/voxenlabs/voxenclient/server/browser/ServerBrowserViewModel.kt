@@ -31,8 +31,9 @@ class ServerBrowserViewModel(
     fun fetchServers() {
         viewModelScope.launch {
             val storedServers = getStoredServersUseCase().map {
-                ServerUiModel("${it.hostname}:${it.port}", "")
+                ServerUiModel(it.serverInfo.name, "")
             }
+            uiState.servers.clear()
             uiState.servers.addAll(storedServers)
         }
     }
@@ -46,29 +47,18 @@ class ServerBrowserViewModel(
         }
     }
 
-    fun addServer(
-        hostname: String,
-        port: String,
-    ) {
-        val server = Server(hostname, port)
-        viewModelScope.launch {
-            storeServerUseCase(server)
-            uiState.servers.add(ServerUiModel("$hostname:$port", ""))
-        }
-    }
-
     fun setCurrentServer(serverUiModel: ServerUiModel) {
-        val splitName = serverUiModel.name.split(":")
+        /*val splitName = serverUiModel.name.split(":")
         val server = Server(splitName[0], splitName[1])
-        setCurrentServerHostnameUseCase(server.hostname, server.port)
+        setCurrentServerHostnameUseCase(server.hostname, server.port)*/
     }
 
     fun removeServer(serverUiModel: ServerUiModel) {
-        val splitName = serverUiModel.name.split(":")
+        /*val splitName = serverUiModel.name.split(":")
         val server = Server(splitName[0], splitName[1])
         viewModelScope.launch {
             removeStoredServerUseCase(server)
             uiState.servers.remove(serverUiModel)
-        }
+        }*/
     }
 }

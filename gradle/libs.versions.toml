@@ -11,16 +11,16 @@ androidx-core = "1.17.0"
 androidx-lifecycle = "2.9.6"
 
 composeHotReload = "1.0.0"
-composeMultiplatform = "1.10.1"
-material3 = "1.10.0-alpha05"
+composeMultiplatform = "1.10.2"
+material3 = "1.11.0-alpha04"
 
 kotlin = "2.3.10"
 kotlinx-coroutines = "1.10.2"
 koin-bom = "4.2.0-RC1"
-koin-plugin = "0.3.0"
+koin-plugin = "0.4.0"
 
 webrtcJava = "0.14.0"
-signalrkore = "0.9.12"
+signalrkore = "0.9.13"
 
 junit = "4.13.2"
 androidx-espresso = "3.7.0"

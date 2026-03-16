@@ -36,13 +36,12 @@ import voxenclient.presentation.generated.resources.plus
 
 @Composable
 fun ServerBrowser(
-    viewModel: ServerBrowserViewModel,
+    uiState: ServerBrowserUiState,
+    events: ServerBrowserEvents,
     modifier: Modifier = Modifier,
 ) {
     var showAddServerDialog by remember { mutableStateOf(false) }
     var showLoginDialog by remember { mutableStateOf(false) }
-
-    viewModel.fetchServers()
 
     Scaffold(
         modifier = modifier,
@@ -59,27 +58,24 @@ fun ServerBrowser(
         },
     ) {
         ServerGrid(
-            viewModel,
+            uiState,
             onServerClick = {
-                viewModel.setCurrentServer(it)
+                events.onSetCurrentServer(it.url)
                 showLoginDialog = true
+            },
+            removeServer = {
+                events.onRemoveServer(it.url)
             },
         )
 
         if (showAddServerDialog) {
             AddServerDialog(
-                viewModel = koinInject(),
-                onServerAdded = {
-                    viewModel.fetchServers()
-                    showAddServerDialog = false
-                },
+                events = events,
                 onDismissRequest = { showAddServerDialog = false },
             )
         } else if (showLoginDialog) {
             LoginDialog(
-                onLogin = { username, password ->
-                    viewModel.login(username, password)
-                },
+                events = events,
                 onDismissRequest = { showLoginDialog = false },
             )
         }
@@ -88,8 +84,9 @@ fun ServerBrowser(
 
 @Composable
 internal expect fun ServerGrid(
-    serverBrowserViewModel: ServerBrowserViewModel,
+    uiState: ServerBrowserUiState,
     onServerClick: (ServerUiModel) -> Unit,
+    removeServer: (ServerUiModel) -> Unit,
     modifier: Modifier = Modifier,
 )
 
@@ -137,10 +134,15 @@ internal fun ServerItem(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 fun ServerBrowserComposablePreview() = ScreenPreview {
     ServerBrowser(
-        viewModel = koinInject(),
+        ServerBrowserUiState(listOf()),
+        { _, _ -> },
+        { _, _ -> },
+        { _ -> },
+        { _ -> },
     )
 }
+*/

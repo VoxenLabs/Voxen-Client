@@ -8,5 +8,5 @@ import org.koin.core.annotation.Factory
 class RemoveStoredServerUseCase(
     val serverRepository: ServerRepositoryInterface,
 ) {
-    suspend operator fun invoke(server: Server) = serverRepository.removeStoredServer(server)
+    suspend operator fun invoke(url: String) = serverRepository.removeStoredServer(url)
 }

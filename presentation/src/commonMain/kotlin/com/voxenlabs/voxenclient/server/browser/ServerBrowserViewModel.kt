@@ -11,9 +11,12 @@ import com.voxenlabs.domain.server.models.Server
 import com.voxenlabs.domain.server.usecases.GetStoredServersUseCase
 import com.voxenlabs.domain.server.usecases.RemoveStoredServerUseCase
 import com.voxenlabs.domain.server.usecases.StoreServerUseCase
+import com.voxenlabs.domain.server.usecases.VerifyAndAddServerUseCase
 import com.voxenlabs.domain.users.usecases.LoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.InjectedParam
 import org.koin.core.annotation.KoinViewModel
@@ -24,17 +27,17 @@ class ServerBrowserViewModel(
     private val getStoredServersUseCase: GetStoredServersUseCase,
     private val storeServerUseCase: StoreServerUseCase,
     private val removeStoredServerUseCase: RemoveStoredServerUseCase,
+    private val verifyAndAddServer: VerifyAndAddServerUseCase,
     private val loginUseCase: LoginUseCase,
 ) : ViewModel() {
-    val uiState by mutableStateOf(ServerBrowserUiState(mutableStateListOf()))
+    private val _uiState = MutableStateFlow(ServerBrowserUiState(listOf()))
+    val uiState = _uiState.asStateFlow()
 
     fun fetchServers() {
         viewModelScope.launch {
-            val storedServers = getStoredServersUseCase().map {
-                ServerUiModel(it.serverInfo.name, "")
-            }
-            uiState.servers.clear()
-            uiState.servers.addAll(storedServers)
+            val storedServers = getStoredServersUseCase().mapToUiModel()
+            _uiState.update { it.copy(servers = storedServers) }
+            print(storedServers)
         }
     }
 
@@ -47,18 +50,23 @@ class ServerBrowserViewModel(
         }
     }
 
-    fun setCurrentServer(serverUiModel: ServerUiModel) {
-        /*val splitName = serverUiModel.name.split(":")
-        val server = Server(splitName[0], splitName[1])
-        setCurrentServerHostnameUseCase(server.hostname, server.port)*/
+    fun setCurrentServer(url: String) {
+        // setCurrentServerHostnameUseCase(serverUiModel.hostname, serverUiModel.port)
     }
 
-    fun removeServer(serverUiModel: ServerUiModel) {
-        /*val splitName = serverUiModel.name.split(":")
-        val server = Server(splitName[0], splitName[1])
+    fun addServer(
+        hostname: String,
+        port: String,
+    ) {
         viewModelScope.launch {
-            removeStoredServerUseCase(server)
-            uiState.servers.remove(serverUiModel)
-        }*/
+            verifyAndAddServer(hostname, port)
+        }
+    }
+
+    fun removeServer(url: String) {
+        viewModelScope.launch {
+            removeStoredServerUseCase(url)
+            fetchServers()
+        }
     }
 }

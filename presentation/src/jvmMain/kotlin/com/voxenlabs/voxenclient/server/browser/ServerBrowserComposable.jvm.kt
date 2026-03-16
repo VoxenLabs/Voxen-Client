@@ -13,8 +13,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal actual fun ServerGrid(
-    serverBrowserViewModel: ServerBrowserViewModel,
+    uiState: ServerBrowserUiState,
     onServerClick: (ServerUiModel) -> Unit,
+    removeServer: (ServerUiModel) -> Unit,
     modifier: Modifier,
 ) = LazyVerticalGrid(
     modifier = modifier,
@@ -23,12 +24,12 @@ internal actual fun ServerGrid(
     verticalArrangement = Arrangement.spacedBy(8.dp),
     columns = GridCells.Adaptive(minSize = 100.dp),
 ) {
-    items(serverBrowserViewModel.uiState.servers) {
+    items(uiState.servers) {
         ContextMenuArea(
             items = {
                 listOf(
                     ContextMenuItem("Delete") {
-                        serverBrowserViewModel.removeServer(it)
+                        removeServer(it)
                     },
                 )
             },

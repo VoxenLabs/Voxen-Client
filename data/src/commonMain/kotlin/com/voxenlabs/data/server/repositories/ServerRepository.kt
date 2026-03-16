@@ -14,20 +14,18 @@ class ServerRepository(
 ) : ServerRepositoryInterface {
     override suspend fun getServerInfo(): ServerInfo = serverApi.getServerInfo().toDomain()
 
-    override suspend fun getStoredServers(): MutableList<Server> = kSafe.get(SERVER_KEY, defaultValue = mutableListOf())
+    override suspend fun getStoredServers(): List<Server> = kSafe.get(SERVER_KEY, defaultValue = listOf())
 
     override suspend fun storeServer(server: Server) {
         val servers = getStoredServers()
-        servers.add(server)
 
-        kSafe.put(SERVER_KEY, servers)
+        kSafe.put(SERVER_KEY, servers + server)
     }
 
-    override suspend fun removeStoredServer(server: Server) {
+    override suspend fun removeStoredServer(url: String) {
         val servers = getStoredServers()
-        servers.remove(server)
 
-        kSafe.put(SERVER_KEY, servers)
+        kSafe.put(SERVER_KEY, servers.filterNot { it.url == url })
     }
 
     companion object {

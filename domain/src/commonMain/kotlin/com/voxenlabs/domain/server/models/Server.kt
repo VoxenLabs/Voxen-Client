@@ -8,4 +8,6 @@ data class Server(
     val port: String,
     val serverInfo: ServerInfo,
     val jwtToken: String? = null,
-)
+) {
+    val url = "$hostname:$port"
+}

@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoginDialog(
-    onLogin: (login: String, password: String) -> Unit,
+    events: ServerBrowserEvents,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -80,7 +80,7 @@ fun LoginDialog(
         confirmButton = {
             TextButton(
                 onClick = {
-                    onLogin(
+                    events.onLogin(
                         username.text.toString(),
                         password.text.toString(),
                     )

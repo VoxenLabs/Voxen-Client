@@ -43,4 +43,4 @@ jobs:
         env:
           SONAR_TOKEN: ${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ github.actor == 'dependabot[bot]' && secrets.SONAR_URL_DEPENDABOT || secrets.SONAR_HOST_URL }}
-        run: ./gradlew build sonar --info
+        run: ./gradlew buildDebug sonar --info

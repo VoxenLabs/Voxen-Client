@@ -1,9 +1,9 @@
-import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.koin.compiler)
 }
 
@@ -28,15 +28,17 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.annotations)
-            implementation(libs.signalrkore)
-            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
-
-            implementation(projects.domain)
-            implementation(projects.api)
+            implementation(libs.ktor.client.cio)
+            implementation(libs.ktor.client.content.negotation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.auth)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.napier)
         }
 
         commonTest.dependencies {
@@ -44,15 +46,12 @@ kotlin {
             implementation(libs.koin.test)
         }
 
-        jvmMain.dependencies {
-            val webrtcDependency = when {
-                OperatingSystem.current().isWindows -> "dev.onvoid.webrtc:webrtc-java:0.14.0:windows-x86_64"
-                OperatingSystem.current().isLinux -> "dev.onvoid.webrtc:webrtc-java:0.14.0:linux-x86_64"
-                OperatingSystem.current().isMacOsX -> "dev.onvoid.webrtc:webrtc-java:0.14.0:macos-aarch64"
-                else -> ""
-            }
-            runtimeOnly(webrtcDependency)
-            implementation(libs.webrtc.java)
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }

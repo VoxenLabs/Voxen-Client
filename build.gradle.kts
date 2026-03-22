@@ -8,14 +8,15 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.koin.compiler) apply false
+    alias(libs.plugins.kotlinSerialization) apply false
 
     // SonarQube
     id("org.sonarqube") version "7.2.2.6593"
 }
 
 sonar {
-  properties {
-    property("sonar.projectKey", "Voxen-client")
-    property("sonar.projectName", "Voxen-client")
-  }
+    properties {
+        property("sonar.projectKey", "Voxen-client")
+        property("sonar.projectName", "Voxen-client")
+    }
 }

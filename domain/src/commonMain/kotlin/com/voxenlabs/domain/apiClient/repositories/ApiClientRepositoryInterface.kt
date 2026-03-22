@@ -1,6 +1,6 @@
 package com.voxenlabs.domain.apiClient.repositories
 
-interface ApiClientRepositoryInterface {
+fun interface ApiClientRepositoryInterface {
     fun setCurrentServerHostName(
         hostname: String,
         port: String,

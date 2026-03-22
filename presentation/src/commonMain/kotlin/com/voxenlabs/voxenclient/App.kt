@@ -11,13 +11,6 @@ import org.koin.compose.koinInject
 @Composable
 @Suppress("ktlint:compose:modifier-missing-check")
 fun App() {
-    val login: LoginUseCase = koinInject()
-    val setCurrentServerHostnameUseCase: SetCurrentServerHostnameUseCase = koinInject()
-    setCurrentServerHostnameUseCase("http://localhost", "5055")
-    runBlocking {
-        login("admin", "Admin123")
-    }
-
     MaterialTheme {
         ServerBrowserComposablePreview()
     }

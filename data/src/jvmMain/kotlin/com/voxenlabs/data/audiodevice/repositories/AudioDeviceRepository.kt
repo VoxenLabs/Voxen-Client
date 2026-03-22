@@ -1,6 +1,5 @@
 package com.voxenlabs.data.audiodevice.repositories
 
-import com.voxenlabs.domain.audiodevice.models.AudioDevice
 import com.voxenlabs.domain.audiodevice.repositories.AudioDeviceRepositoryInterface
 import dev.onvoid.webrtc.media.MediaDevices
 import org.koin.core.annotation.Singleton

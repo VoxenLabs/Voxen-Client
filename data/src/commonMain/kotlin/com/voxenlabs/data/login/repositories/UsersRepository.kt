@@ -1,13 +1,13 @@
 package com.voxenlabs.data.login.repositories
 
 import com.voxenlabs.api.ApiClient
-import com.voxenlabs.data.login.api.UsersApiInterface
+import com.voxenlabs.api.users.UsersApi
 import com.voxenlabs.domain.users.repositories.UsersRepositoryInterface
 import org.koin.core.annotation.Singleton
 
 @Singleton
 class UsersRepository(
-    val usersApi: UsersApiInterface,
+    val usersApi: UsersApi,
 ) : UsersRepositoryInterface {
     override suspend fun login(
         username: String,

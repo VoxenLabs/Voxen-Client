@@ -10,6 +10,6 @@ class ApiClientRepository : ApiClientRepositoryInterface {
         hostname: String,
         port: String,
     ) {
-        ApiClient.baseUrl = "http://$hostname:$port"
+        ApiClient.baseUrl = "$hostname:$port"
     }
 }

@@ -5,25 +5,28 @@ import LoginResponse
 import RegisterRequest
 import com.voxenlabs.api.ApiClient
 import io.ktor.client.call.body
-import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpMethod
+import org.koin.core.annotation.Singleton
 
-object UsersApi {
+@Singleton
+class UsersApi {
     suspend fun login(
         username: String,
         password: String,
-    ): HttpResponse {
-        val url = "/users/login"
-
-        return ApiClient.executeRequest(url, HttpMethod.Post, LoginRequest(username, password))
-    }
+    ): LoginResponse = ApiClient.executeRequest(
+        endpoint = "/users/login",
+        method = HttpMethod.Post,
+        body = LoginRequest(username, password),
+    ).body()
 
     suspend fun register(
         username: String,
         password: String,
-    ): HttpResponse {
-        val url = "/users/register"
-
-        return ApiClient.executeRequest(url, HttpMethod.Post, RegisterRequest(username, password))
+    ) {
+        ApiClient.executeRequest(
+            endpoint = "/users/register",
+            method = HttpMethod.Post,
+            body = RegisterRequest(username, password),
+        )
     }
 }

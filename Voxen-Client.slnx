@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Packages.props" />
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/bundles/">
+    <Project Path="src/bundles/Voxen.Client.Android/Voxen.Client.Android.csproj" />
+    <Project Path="src/bundles/Voxen.Client.Browser/Voxen.Client.Browser.csproj" />
+    <Project Path="src/bundles/Voxen.Client.Desktop/Voxen.Client.Desktop.csproj" />
+    <Project Path="src/bundles/Voxen.Client.iOS/Voxen.Client.iOS.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/">
+    <Project Path="src/shared/Voxen.Client/Voxen.Client.csproj" />
+  </Folder>
+</Solution>

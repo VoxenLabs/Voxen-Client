@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build and analyse
+    name: Build and analyze
     runs-on: [self-hosted, Linux]
     steps:
       - uses: actions/checkout@v6
@@ -25,22 +25,44 @@ jobs:
       - name: Cache SonarQube packages
         uses: actions/cache@v5
         with:
-          path: ~/.sonar/cache
+          path: ${{ runner.temp }}\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v5
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
       
-      - name: Build and analyze
-        env:
-          SONAR_TOKEN: ${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ github.actor == 'dependabot[bot]' && secrets.SONAR_URL_DEPENDABOT || secrets.SONAR_HOST_URL }}
-        run: ./gradlew buildDebug sonar --info
+      - name: Install dotnet-coverage
+        run: dotnet tool update --global dotnet-coverage
+
+      - name: Install dotnet-sonarscanner
+        run: dotnet tool update --global dotnet-sonarscanner
+        
+      - name: Start SonarQube Analysis
+        run: |
+          dotnet-sonarscanner begin \
+          /k:"Voxen-client" \
+          /d:sonar.token="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}" \
+          /d:sonar.host.url="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_URL_DEPENDABOT || secrets.SONAR_HOST_URL }}" \
+          /d:sonar.cs.vscoveragexml.reportsPaths=coverage_data.xml \
+          /d:sonar.exclusions="**/Migrations/**/*"
+
+      - name: Build
+        run: dotnet build
+
+      - name: Run tests
+        run: dotnet-coverage collect 'dotnet test --no-build --logger "trx;LogFilePrefix=testresults"' -f xml -o 'coverage_data.xml'
+
+      - name: Generate test report
+        uses: dorny/test-reporter@v2
+        if: success() || failure()
+        with:
+          name: Test results
+          path: "**/testresults*.trx"
+          reporter: dotnet-trx
+          list-suites: "all"
+          list-tests: "all"
+          fail-on-empty: "false"
+          fail-on-error: "false"
+
+      - name: Finish SonarQube Analysis
+        if: success()
+        run: |
+          dotnet-sonarscanner end /d:sonar.token="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}"

@@ -11,6 +11,9 @@ jobs:
   build:
     name: Build and analyze
     runs-on: [self-hosted, Linux]
+    env:
+      DOTNET_ROOT: /home/runner/.dotnet
+      PATH: /home/runner/.dotnet:/home/runner/.dotnet/tools:$PATH
     steps:
       - uses: actions/checkout@v6
         with:

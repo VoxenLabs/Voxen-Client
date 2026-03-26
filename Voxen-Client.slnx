@@ -14,7 +14,8 @@
     <Project Path="src/bundles/Voxen.Client.Android/Voxen.Client.Android.csproj" />
     <Project Path="src/bundles/Voxen.Client.Browser/Voxen.Client.Browser.csproj" />
     <Project Path="src/bundles/Voxen.Client.Desktop/Voxen.Client.Desktop.csproj" />
-    <Project Path="src/bundles/Voxen.Client.iOS/Voxen.Client.iOS.csproj" />
+    <!-- IOS project temporarily excluded, because no build systems for IOS are available yet. -->
+    <!-- <Project Path="src/bundles/Voxen.Client.iOS/Voxen.Client.iOS.csproj" /> -->
   </Folder>
   <Folder Name="/src/shared/">
     <Project Path="src/shared/Voxen.Client/Voxen.Client.csproj" />

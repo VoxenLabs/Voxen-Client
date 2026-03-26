@@ -48,7 +48,7 @@ jobs:
           /d:sonar.exclusions="**/Migrations/**/*"
 
       - name: Build
-        run: dotnet build
+        run: dotnet build Voxen.Client.slnx -c Release /p:ExcludeIOS=true /p:BuildProjectReferences=false
 
       - name: Run tests
         run: dotnet-coverage collect 'dotnet test --no-build --logger "trx;LogFilePrefix=testresults"' -f xml -o 'coverage_data.xml'

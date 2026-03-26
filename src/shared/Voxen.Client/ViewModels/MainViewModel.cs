@@ -1,4 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using Voxen.Client.ServerBrowser.ViewModels;
+
 
 namespace Voxen.Client.ViewModels;
 

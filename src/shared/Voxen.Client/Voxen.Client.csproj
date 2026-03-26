@@ -19,4 +19,8 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\modules\Voxen.Client.ServerBrowser\Voxen.Client.ServerBrowser.csproj" />
+  </ItemGroup>
 </Project>

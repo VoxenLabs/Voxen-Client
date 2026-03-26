@@ -1,6 +1,6 @@
-using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 
 namespace Voxen.Client.ServerBrowser.ViewModels;
 
@@ -11,7 +11,7 @@ public partial class ServerBrowserViewModel : ObservableObject
 
     public ServerBrowserViewModel()
     {
-        // Example: prepopulate servers if you want
+        // Optional: prepopulate
         // Servers.Add("A");
         // Servers.Add("B");
     }
@@ -19,7 +19,8 @@ public partial class ServerBrowserViewModel : ObservableObject
     [RelayCommand]
     private void AddServer()
     {
-        // Here you would open a dialog to create a new server
-        Servers.Add("New Server");
+        // Just for demo: add a new server with a number
+        int count = Servers.Count + 1;
+        Servers.Add($"Server {count}");
     }
 }

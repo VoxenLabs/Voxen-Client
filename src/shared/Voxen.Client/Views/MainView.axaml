@@ -1,6 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:views="using:Voxen.Client.Views"
+             xmlns:views="using:Voxen.Client.ServerBrowser.Views"
              xmlns:vm="using:Voxen.Client.ViewModels"
              x:Class="Voxen.Client.Views.MainView"
              x:DataType="vm:MainViewModel">

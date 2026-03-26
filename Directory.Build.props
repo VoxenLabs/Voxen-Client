@@ -24,4 +24,8 @@
 
 	</PropertyGroup>
 
+  <PropertyGroup>
+    <ExcludeIOS Condition="'$(ExcludeIOS)'==''">true</ExcludeIOS>
+  </PropertyGroup>
+
 </Project>

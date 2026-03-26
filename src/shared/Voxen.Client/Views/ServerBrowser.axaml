@@ -6,9 +6,24 @@
 
     <Border Background="#1E1F22">
         <StackPanel Spacing="10" Margin="10">
-            <!-- Only the add server button for now -->
-            <Button Width="60" Height="60" CornerRadius="30" Content="+"
-                    Command="{Binding AddServerCommand}" />
+
+            <!-- Use ItemsSource with compiled binding -->
+            <ItemsControl ItemsSource="{Binding Servers}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Button Width="60" Height="60" CornerRadius="30"
+                                Content="{Binding}"
+                                HorizontalAlignment="Center"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Add server button -->
+            <Button Width="60" Height="60" CornerRadius="30"
+                    Content="+"
+                    Command="{Binding AddServerCommand}"
+                    HorizontalAlignment="Center"/>
         </StackPanel>
     </Border>
+
 </UserControl>

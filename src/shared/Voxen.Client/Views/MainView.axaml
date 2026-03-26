@@ -1,16 +1,60 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Voxen.Client.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Voxen.Client.Views.MainView"
              x:DataType="vm:MainViewModel">
-  <Design.DataContext>
-    <!-- This only sets the DataContext for the previewer in an IDE,
-         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-    <vm:MainViewModel />
-  </Design.DataContext>
 
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid ColumnDefinitions="80,*">
+
+        <!-- LEFT: Server Sidebar -->
+        <Border Background="#1E1F22">
+            <StackPanel Spacing="10" Margin="10">
+
+                <!-- Example server icons -->
+                <Button Width="60" Height="60" CornerRadius="30" Content="A"/>
+                <Button Width="60" Height="60" CornerRadius="30" Content="B"/>
+                <Button Width="60" Height="60" CornerRadius="30" Content="+"/>
+
+            </StackPanel>
+        </Border>
+
+        <!-- RIGHT: Content Area -->
+        <Grid Grid.Column="1" RowDefinitions="60,*">
+
+            <!-- Top Bar -->
+            <Border Background="#2B2D31">
+                <TextBlock Text="Voxen"
+                           VerticalAlignment="Center"
+                           Margin="16,0"
+                           FontSize="18"
+                           FontWeight="Bold"/>
+            </Border>
+
+            <!-- Main Content -->
+            <Grid Grid.Row="1" ColumnDefinitions="240,*">
+
+                <!-- Channel Sidebar -->
+                <Border Background="#2B2D31">
+                    <StackPanel Margin="10" Spacing="5">
+                        <TextBlock Text="Channels" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                        <Button Content="# general"/>
+                        <Button Content="# random"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Actual Content -->
+                <Border Grid.Column="1" Background="#313338">
+                    <TextBlock Text="Content goes here"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"/>
+                </Border>
+
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+
 </UserControl>

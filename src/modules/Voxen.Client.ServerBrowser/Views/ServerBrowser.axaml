@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Voxen.Client.ServerBrowser.ViewModels" 
+             xmlns:viewModels="clr-namespace:Voxen.Client.ServerBrowser.ViewModels"
+             x:Class="Voxen.Client.ServerBrowser.Views.ServerBrowser"
+             x:DataType="viewModels:ServerBrowserViewModel">
+
+    <Border Background="#1E1F22">
+        <StackPanel Spacing="10" Margin="10">
+            <!-- Only the add server button for now -->
+            <Button Width="60" Height="60" CornerRadius="30" Content="+"
+                    Command="{Binding AddServerCommand}" />
+        </StackPanel>
+    </Border>
+</UserControl>

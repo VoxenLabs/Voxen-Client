@@ -1,22 +1,14 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:Voxen.Client.ViewModels"
+             xmlns:views="clr-namespace:Voxen.Client.Views"
              x:Class="Voxen.Client.Views.MainView"
              x:DataType="vm:MainViewModel">
 
     <Grid ColumnDefinitions="80,*">
 
         <!-- LEFT: Server Sidebar -->
-        <Border Background="#1E1F22">
-            <StackPanel Spacing="10" Margin="10">
-
-                <!-- Example server icons -->
-                <Button Width="60" Height="60" CornerRadius="30" Content="A"/>
-                <Button Width="60" Height="60" CornerRadius="30" Content="B"/>
-                <Button Width="60" Height="60" CornerRadius="30" Content="+"/>
-
-            </StackPanel>
-        </Border>
+        <views:ServerBrowser DataContext="{Binding ServerBrowserVM}" />
 
         <!-- RIGHT: Content Area -->
         <Grid Grid.Column="1" RowDefinitions="60,*">

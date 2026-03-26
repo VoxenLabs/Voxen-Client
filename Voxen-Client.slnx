@@ -17,6 +17,7 @@
     <!-- IOS project temporarily excluded, because no build systems for IOS are available yet. -->
     <!-- <Project Path="src/bundles/Voxen.Client.iOS/Voxen.Client.iOS.csproj" /> -->
   </Folder>
+  <Folder Name="/src/modules/" />
   <Folder Name="/src/shared/">
     <Project Path="src/shared/Voxen.Client/Voxen.Client.csproj" />
   </Folder>

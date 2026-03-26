@@ -6,4 +6,12 @@ public partial class MainViewModel : ViewModelBase
 {
     [ObservableProperty]
     private string _greeting = "Welcome to Avalonia!";
+
+    public ServerBrowserViewModel ServerBrowserVM { get; }
+
+    // Constructor
+    public MainViewModel()
+    {
+        ServerBrowserVM = new ServerBrowserViewModel();
+    }
 }

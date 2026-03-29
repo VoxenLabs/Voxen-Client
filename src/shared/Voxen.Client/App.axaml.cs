@@ -13,12 +13,19 @@ public partial class App : Application
 {
     public IServiceProvider Services { get; }
 
-    public new static App Current;
+    private static App? _current;
+    public new static App Current
+    {
+        get
+        {
+            return _current!;
+        }
+    }
 
     public App()
     {
         Services = ConfigureServices();
-        Current = this;
+        _current = this;
     }
 
     public override void Initialize()

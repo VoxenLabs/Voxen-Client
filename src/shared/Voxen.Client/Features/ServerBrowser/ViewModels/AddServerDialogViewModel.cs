@@ -1,9 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 using Voxen.Client.Domain.ServerDefinitions.Models;
 using Voxen.Client.Domain.ServerDefinitions.UseCases;
 using Voxen.Client.Features.Dialog;
@@ -38,7 +34,8 @@ namespace Voxen.Client.Features.ServerBrowser.ViewModels
             if (Hostname.Trim().Length > 0 && Port.Trim().Length > 0)
             {
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }

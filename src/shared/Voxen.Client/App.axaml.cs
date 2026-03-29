@@ -1,13 +1,11 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
-using System.Linq;
 using Avalonia.Markup.Xaml;
-using Voxen.Client.ViewModels;
-using Voxen.Client.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Voxen.Client.DependencyInjection;
+using Voxen.Client.ViewModels;
+using Voxen.Client.Views;
 
 namespace Voxen.Client;
 

@@ -1,7 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Voxen.Client.Features.Dialog;
-using Voxen.Client.Features.ServerBrowser.ViewModels;
-
 
 namespace Voxen.Client.ViewModels;
 

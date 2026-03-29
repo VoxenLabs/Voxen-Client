@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Voxen.Client.ViewModels;
 
 namespace Voxen.Client.Features.Dialog
@@ -11,7 +8,7 @@ namespace Voxen.Client.Features.Dialog
 
         public static DialogManager Shared
         {
-            get { return _shared; } 
+            get { return _shared; }
         }
 
         private IDialogHandler? _currentHandler;

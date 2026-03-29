@@ -1,7 +1,4 @@
 using SecureLocalStorage;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Voxen.Client.Domain.ServerDefinitions.Models;
 using Voxen.Client.Domain.ServerDefinitions.RepositoryInterfaces;
 

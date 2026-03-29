@@ -1,13 +1,27 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using Voxen.Client.ServerBrowser.ViewModels;
+using Voxen.Client.Features.Dialog;
+using Voxen.Client.Features.ServerBrowser.ViewModels;
 
 
 namespace Voxen.Client.ViewModels;
 
-public partial class MainViewModel : ViewModelBase
+public partial class MainViewModel : ViewModelBase, IDialogHandler
 {
     [ObservableProperty]
-    private string _greeting = "Welcome to Avalonia!";
+    private ViewModelBase? currentDialog;
 
-    public ServerBrowserViewModel ServerBrowserVM { get; } = new();
+    public MainViewModel()
+    {
+        DialogManager.Shared.SetCurrentHandler(this);
+    }
+
+    public void PresentDialog(ViewModelBase dialogViewModel)
+    {
+        CurrentDialog = dialogViewModel;
+    }
+
+    public void CloseCurrentDialog()
+    {
+        CurrentDialog = null;
+    }
 }

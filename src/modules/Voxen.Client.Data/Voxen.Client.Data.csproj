@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <NoWarn>1591</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <NoWarn>1591</NoWarn>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="SecureLocalStorage" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Voxen.Client.Domain\Voxen.Client.Domain.csproj" />
+    </ItemGroup>
+</Project>

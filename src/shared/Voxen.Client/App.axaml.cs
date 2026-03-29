@@ -6,11 +6,23 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using Voxen.Client.ViewModels;
 using Voxen.Client.Views;
+using Microsoft.Extensions.DependencyInjection;
+using Voxen.Client.DependencyInjection;
 
 namespace Voxen.Client;
 
 public partial class App : Application
 {
+    public IServiceProvider Services { get; }
+
+    public new static App Current;
+
+    public App()
+    {
+        Services = ConfigureServices();
+        Current = this;
+    }
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -50,5 +62,15 @@ public partial class App : Application
         {
             BindingPlugins.DataValidators.Remove(plugin);
         }
+    }
+
+    private IServiceProvider ConfigureServices()
+    {
+        // Register all the services needed for the application to run
+        var collection = new ServiceCollection();
+        collection.AddServerDependencies();
+
+        // Creates a ServiceProvider containing services from the provided IServiceCollection
+        return collection.BuildServiceProvider();
     }
 }

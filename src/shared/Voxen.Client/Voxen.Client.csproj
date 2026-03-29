@@ -3,6 +3,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
   
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
@@ -18,9 +24,11 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\Voxen.Client.ServerBrowser\Voxen.Client.ServerBrowser.csproj" />
+    <ProjectReference Include="..\..\modules\Voxen.Client.Data\Voxen.Client.Data.csproj" />
+    <ProjectReference Include="..\..\modules\Voxen.Client.Domain\Voxen.Client.Domain.csproj" />
   </ItemGroup>
 </Project>

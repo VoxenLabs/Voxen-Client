@@ -4,7 +4,7 @@ namespace Voxen.Client.Data.Storage;
 /// Defines a generic storage mechanism for storing and retrieving values by key.
 /// </summary>
 /// <typeparam name="KeyType">The type of the key used to identify stored values.</typeparam>
-public interface IStorage<KeyType>
+public interface IStorage<in KeyType>
 {
     /// <summary>
     /// Retrieves a value of type <typeparamref name="T"/> associated with the specified key.

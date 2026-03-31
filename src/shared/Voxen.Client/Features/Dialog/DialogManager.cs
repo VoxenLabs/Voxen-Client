@@ -4,7 +4,7 @@ namespace Voxen.Client.Features.Dialog;
 
 public class DialogManager
 {
-    public static DialogManager _shared = new();
+    private static DialogManager _shared = new();
 
     public static DialogManager Shared
     {

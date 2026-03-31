@@ -1,31 +1,30 @@
 using Voxen.Client.ViewModels;
 
-namespace Voxen.Client.Features.Dialog
+namespace Voxen.Client.Features.Dialog;
+
+public class DialogManager
 {
-    public class DialogManager
+    public static DialogManager _shared = new();
+
+    public static DialogManager Shared
     {
-        public static DialogManager _shared = new();
+        get { return _shared; }
+    }
 
-        public static DialogManager Shared
-        {
-            get { return _shared; }
-        }
+    private IDialogHandler? _currentHandler;
 
-        private IDialogHandler? _currentHandler;
+    public void PresentDialog(ViewModelBase dialogViewModel)
+    {
+        _currentHandler?.PresentDialog(dialogViewModel);
+    }
 
-        public void PresentDialog(ViewModelBase dialogViewModel)
-        {
-            _currentHandler?.PresentDialog(dialogViewModel);
-        }
+    public void CloseCurrentDialog()
+    {
+        _currentHandler?.CloseCurrentDialog();
+    }
 
-        public void CloseCurrentDialog()
-        {
-            _currentHandler?.CloseCurrentDialog();
-        }
-
-        public void SetCurrentHandler(IDialogHandler dialogHandler)
-        {
-            _currentHandler = dialogHandler;
-        }
+    public void SetCurrentHandler(IDialogHandler dialogHandler)
+    {
+        _currentHandler = dialogHandler;
     }
 }

@@ -2,40 +2,39 @@ using SecureLocalStorage;
 using Voxen.Client.Domain.ServerDefinitions.Models;
 using Voxen.Client.Domain.ServerDefinitions.RepositoryInterfaces;
 
-namespace Voxen.Client.Data.ServerDefinitions.Repositories
+namespace Voxen.Client.Data.ServerDefinitions.Repositories;
+
+public class ServerRepository : IServerRepository
 {
-    public class ServerRepository : IServerRepository
+    private const string SERVER_KEY = "servers";
+
+    private readonly SecureLocalStorage.SecureLocalStorage storage;
+
+    public ServerRepository()
     {
-        private const string SERVER_KEY = "servers";
+        // TODO: Make an extra abstraction for storage, inject SecureLocalStorage
+        var config = new DefaultLocalStorageConfig();
+        storage = new SecureLocalStorage.SecureLocalStorage(config);
+    }
 
-        private readonly SecureLocalStorage.SecureLocalStorage storage;
+    public List<Server> GetStoredServers()
+    {
+        return storage.Get<List<Server>?>(SERVER_KEY) ?? [];
+    }
 
-        public ServerRepository()
-        {
-            // TODO: Make an extra abstraction for storage, inject SecureLocalStorage
-            var config = new DefaultLocalStorageConfig();
-            storage = new SecureLocalStorage.SecureLocalStorage(config);
-        }
+    public void RemoveStoredServer(Server server)
+    {
+        var servers = GetStoredServers();
+        servers.Remove(server);
 
-        public List<Server> GetStoredServers()
-        {
-            return storage.Get<List<Server>?>(SERVER_KEY) ?? [];
-        }
+        storage.Set(SERVER_KEY, servers);
+    }
 
-        public void RemoveStoredServer(Server server)
-        {
-            var servers = GetStoredServers();
-            servers.Remove(server);
+    public void StoreServer(Server server)
+    {
+        var servers = GetStoredServers();
+        servers.Add(server);
 
-            storage.Set(SERVER_KEY, servers);
-        }
-
-        public void StoreServer(Server server)
-        {
-            var servers = GetStoredServers();
-            servers.Add(server);
-
-            storage.Set(SERVER_KEY, servers);
-        }
+        storage.Set(SERVER_KEY, servers);
     }
 }

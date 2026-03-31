@@ -1,10 +1,9 @@
 using Voxen.Client.ViewModels;
 
-namespace Voxen.Client.Features.Dialog
+namespace Voxen.Client.Features.Dialog;
+
+public interface IDialogHandler
 {
-    public interface IDialogHandler
-    {
-        void PresentDialog(ViewModelBase dialogViewModel);
-        void CloseCurrentDialog();
-    }
+    void PresentDialog(ViewModelBase dialogViewModel);
+    void CloseCurrentDialog();
 }

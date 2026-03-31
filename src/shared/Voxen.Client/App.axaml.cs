@@ -3,7 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
-using Voxen.Client.DependencyInjection;
+using Voxen.Client.Extensions;
 using Voxen.Client.ViewModels;
 using Voxen.Client.Views;
 

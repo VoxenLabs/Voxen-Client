@@ -1,4 +1,4 @@
-using SecureLocalStorage;
+using Voxen.Client.Data.Storage;
 using Voxen.Client.Domain.ServerDefinitions.Models;
 using Voxen.Client.Domain.ServerDefinitions.RepositoryInterfaces;
 
@@ -8,20 +8,20 @@ public class ServerRepository : IServerRepository
 {
     private const string SERVER_KEY = "servers";
 
-    private readonly SecureLocalStorage.SecureLocalStorage storage;
+    private readonly IStorage<string> storage;
 
-    public ServerRepository()
+    public ServerRepository(IStorage<string> storage)
     {
-        // TODO: Make an extra abstraction for storage, inject SecureLocalStorage
-        var config = new DefaultLocalStorageConfig();
-        storage = new SecureLocalStorage.SecureLocalStorage(config);
+        this.storage = storage;
     }
 
+    /// <inheritdoc cref="IServerRepository"/>
     public List<Server> GetStoredServers()
     {
         return storage.Get<List<Server>?>(SERVER_KEY) ?? [];
     }
 
+    /// <inheritdoc cref="IServerRepository"/>
     public void RemoveStoredServer(Server server)
     {
         var servers = GetStoredServers();
@@ -30,6 +30,7 @@ public class ServerRepository : IServerRepository
         storage.Set(SERVER_KEY, servers);
     }
 
+    /// <inheritdoc cref="IServerRepository"/>
     public void StoreServer(Server server)
     {
         var servers = GetStoredServers();

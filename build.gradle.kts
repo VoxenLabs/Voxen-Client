@@ -11,7 +11,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization) apply false
 
     // SonarQube
-    id("org.sonarqube") version "7.2.2.6593"
+    id("org.sonarqube") version "7.2.3.7755"
 }
 
 sonar {

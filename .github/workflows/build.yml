@@ -54,7 +54,7 @@ jobs:
         run: dotnet-coverage collect 'dotnet test --no-build --logger "trx;LogFilePrefix=testresults"' -f xml -o 'coverage_data.xml'
 
       - name: Generate test report
-        uses: dorny/test-reporter@v2
+        uses: dorny/test-reporter@v3
         if: success() || failure()
         with:
           name: Test results

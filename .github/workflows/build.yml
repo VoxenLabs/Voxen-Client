@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build and analyze
+    name: Build and analyse
     runs-on: [self-hosted, Linux]
     steps:
       - uses: actions/checkout@v6

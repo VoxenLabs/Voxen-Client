@@ -67,7 +67,7 @@ public partial class App : Application
         }
     }
 
-    private IServiceProvider ConfigureServices()
+    private static ServiceProvider ConfigureServices()
     {
         // Register all the services needed for the application to run
         var collection = new ServiceCollection();

@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Voxen.Client.Features.ServerBrowser.ViewModels"
+             xmlns:models="using:Voxen.Client.Domain.ServerDefinitions.Models"
+             x:Class="Voxen.Client.Features.ServerBrowser.Views.ServerBrowser"
+             x:DataType="vm:ServerBrowserViewModel">
+    <Design.DataContext>
+        <vm:ServerBrowserViewModel/>
+    </Design.DataContext>
+    <Border Background="#1E1F22">
+        <StackPanel Spacing="10" Margin="10">
+
+            <!-- Use ItemsSource with compiled binding -->
+            <ItemsControl ItemsSource="{Binding Servers}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="60" Height="60" CornerRadius="30"
+                                Content="{Binding ServerInfo.Name}"
+                                HorizontalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center">
+                            <Button.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Remove server"
+                                              Command="{Binding $parent[UserControl].DataContext.RemoveServerCommand}"
+                                              CommandParameter="{Binding}"/>
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                         </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Add server button -->
+            <Button Width="60" Height="60" CornerRadius="30"
+                    Content="+"
+                    Command="{Binding AddServerCommand}"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Foreground="White"/>
+        </StackPanel>
+    </Border>
+
+</UserControl>

@@ -1,21 +1,20 @@
 version: 2
 updates:
-  - package-ecosystem: "gradle"
+  - package-ecosystem: "nuget"
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 10
-    rebase-strategy: "auto"
     commit-message:
       prefix: "update"
+    open-pull-requests-limit: 10
     groups:
-      gradle-minor-patch:
+      minor-and-patch:
         patterns:
           - "*"
         update-types:
-          - "minor"
           - "patch"
-      gradle-major:
+          - "minor"
+      major:
         patterns:
           - "*"
         update-types:
@@ -25,7 +24,6 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 5
-    rebase-strategy: "auto"
     commit-message:
       prefix: "update"
+    open-pull-requests-limit: 5

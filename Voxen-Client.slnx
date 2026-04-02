@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/.github/">
+    <File Path=".github/dependabot.yml" />
+  </Folder>
+  <Folder Name="/.github/workflows/">
+    <File Path=".github/workflows/build.yml" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Packages.props" />
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/bundles/">
+    <Project Path="src/bundles/Voxen.Client.Android/Voxen.Client.Android.csproj" />
+    <Project Path="src/bundles/Voxen.Client.Browser/Voxen.Client.Browser.csproj" />
+    <Project Path="src/bundles/Voxen.Client.Desktop/Voxen.Client.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/src/modules/">
+    <Project Path="src/modules/Voxen.Client.Data/Voxen.Client.Data.csproj" Id="e432ed84-48e9-470d-9c83-1dcaba009ee6" />
+    <Project Path="src/modules/Voxen.Client.Domain/Voxen.Client.Domain.csproj" Id="2d9b16b7-6548-4c21-82a2-0ce0c15da320" />
+  </Folder>
+  <Folder Name="/src/shared/">
+    <Project Path="src/shared/Voxen.Client/Voxen.Client.csproj" />
+  </Folder>
+</Solution>

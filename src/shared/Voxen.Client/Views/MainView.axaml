@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="using:Voxen.Client.Features.ServerBrowser.Views"
+             xmlns:vm="using:Voxen.Client.ViewModels"
+             xmlns:converters="using:Voxen.Client.Utilities.Converters"
+             xmlns:metadata="using:System.Reflection.Metadata"
+             x:Class="Voxen.Client.Views.MainView"
+             x:DataType="vm:MainViewModel">
+    <UserControl.Resources>
+        <converters:NullToBoolConverter x:Key="NullToBoolConverter"></converters:NullToBoolConverter>
+    </UserControl.Resources>
+    <Panel>
+        <Grid ColumnDefinitions="80,*">
+
+            <!-- LEFT: Server Sidebar -->
+            <views:ServerBrowser/>
+
+            <!-- RIGHT: Content Area -->
+            <Grid Grid.Column="1" RowDefinitions="60,*">
+
+                <!-- Top Bar -->
+                <Border Background="#2B2D31">
+                    <TextBlock Text="Voxen"
+                               VerticalAlignment="Center"
+                               Margin="16,0"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Foreground="White"/>
+                </Border>
+
+                <!-- Main Content -->
+                <Grid Grid.Row="1" ColumnDefinitions="240,*">
+
+                    <!-- Channel Sidebar -->
+                    <Border Background="#2B2D31">
+                        <StackPanel Margin="10" Spacing="5">
+                            <TextBlock Text="Channels" FontWeight="Bold" Margin="0,0,0,10" Foreground="White"/>
+                            <Button Content="# general" Foreground="White"/>
+                            <Button Content="# random" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Actual Content -->
+                    <Border Grid.Column="1" Background="#313338">
+                        <TextBlock Text="Content goes here"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   Foreground="White"/>
+                    </Border>
+
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+        <Panel IsVisible="{Binding Path=CurrentDialog, Converter={StaticResource NullToBoolConverter}}"
+               PointerReleased="OnDialogPanelReleased">
+            <Panel.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"></SolidColorBrush>
+            </Panel.Background>
+            <RelativePanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border Background="#2b2b2b"
+                        CornerRadius="10">
+                    <StackPanel Margin="12">
+                        <ContentControl Content="{Binding CurrentDialog}"/>
+                    </StackPanel>
+                </Border>
+            </RelativePanel>
+        </Panel>
+    </Panel>
+</UserControl>

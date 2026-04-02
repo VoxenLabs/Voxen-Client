@@ -1,0 +1,27 @@
+<Project>
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+
+		<Authors>VoxenLabs</Authors>
+		<Copyright>VoxenLabs 2026</Copyright>
+		<RepositoryType>git</RepositoryType>
+
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisModeDocumentation>Default</AnalysisModeDocumentation>
+		<AnalysisLevelDocumentation>latest</AnalysisLevelDocumentation>
+		<AnalysisLevel>latest</AnalysisLevel>
+
+		<!-- https://github.com/dotnet/sourcelink -->
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EnableTrimAnalyzer>false</EnableTrimAnalyzer>
+
+	</PropertyGroup>
+
+</Project>
